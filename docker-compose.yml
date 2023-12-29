@@ -1,0 +1,67 @@
+version: '2'
+services:
+  service-discovery:
+    build:
+      context: https://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@github.com/project-smart-contract/service-discovery.git#main
+    ports:
+      - "8081:8081"
+    networks:
+      - project-network
+
+  server-gateway:
+    build:
+      context: https://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@github.com/project-smart-contract/server_gateway.git#main
+    ports:
+      - "8080:8080"
+    depends_on:
+      - service-discovery
+    networks:
+      - project-network
+
+  microservice1-auth:
+    build:
+      context: https://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@github.com/project-smart-contract/microservice1-auth.git#main
+    ports:
+      - "8082:8082"
+    depends_on:
+      - service-discovery
+      - server-gateway
+    networks:
+      - project-network
+
+  microservice2-client:
+    build:
+      context: https://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@github.com/project-smart-contract/microservice2-client.git#main
+    ports:
+      - "8083:8083"
+    depends_on:
+      - service-discovery
+      - server-gateway
+    networks:
+      - project-network
+
+  microservice3-admin:
+    build:
+      context: https://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@github.com/project-smart-contract/microservice3-admin.git#main
+    ports:
+      - "8084:8084"
+    depends_on:
+      - service-discovery
+      - server-gateway
+    networks:
+      - project-network
+
+  microservice4-java-ml:
+    build:
+      context: https://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@github.com/project-smart-contract/microservice4-java-ml.git#main
+    ports:
+      - "8085:8085"
+    depends_on:
+      - service-discovery
+      - server-gateway
+    networks:
+      - project-network
+
+networks:
+  project-network:
+    driver: bridge
