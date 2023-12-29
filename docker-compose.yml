@@ -2,7 +2,7 @@ version: '2'
 services:
   service-discovery:
     build:
-      context: git@github.com:project-smart-contract/project-smart-contract/service-discovery.git
+      context: git@github.com:project-smart-contract/service_discovery.git
       dockerfile: Dockerfile
     ports:
       - "8081:8081"
@@ -11,7 +11,7 @@ services:
 
   server-gateway:
     build:
-      context: git@github.com:project-smart-contract/project-smart-contract/server_gateway.git
+      context: git@github.com:project-smart-contract/server_gateway.git
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
@@ -22,7 +22,7 @@ services:
 
   microservice1-auth:
     build:
-      context: git@github.com:project-smart-contract/project-smart-contract/microservice1-auth.git
+      context: git@github.com:project-smart-contract/microservice1-auth.git
       dockerfile: Dockerfile
     ports:
       - "8082:8082"
@@ -34,7 +34,7 @@ services:
 
   microservice2-client:
     build:
-      context: git@github.com:project-smart-contract/project-smart-contract/microservice2-client.git
+      context: git@github.com:project-smart-contract/microservice2-client.git
       dockerfile: Dockerfile
     ports:
       - "8083:8083"
@@ -46,7 +46,7 @@ services:
 
   microservice3-admin:
     build:
-      context: git@github.com:project-smart-contract/project-smart-contract/microservice3-admin.git
+      context: git@github.com:project-smart-contract/microservice3-admin.git
       dockerfile: Dockerfile
     ports:
       - "8084:8084"
@@ -58,7 +58,7 @@ services:
 
   microservice4-java-ml:
     build:
-      context: git@github.com:project-smart-contract/project-smart-contract/microservice4-java-ml.git
+      context: git@github.com:project-smart-contract/microservice4-java-ml.git
       dockerfile: Dockerfile
     ports:
       - "8085:8085"
