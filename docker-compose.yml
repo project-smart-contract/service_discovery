@@ -2,7 +2,8 @@ version: '2'
 services:
   service-discovery:
     build:
-      context: https://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@github.com/project-smart-contract/service-discovery.git#main
+      context: git@github.com:project-smart-contract/project-smart-contract/service-discovery.git
+      dockerfile: Dockerfile
     ports:
       - "8081:8081"
     networks:
@@ -10,7 +11,8 @@ services:
 
   server-gateway:
     build:
-      context: https://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@github.com/project-smart-contract/server_gateway.git#main
+      context: git@github.com:project-smart-contract/project-smart-contract/server_gateway.git
+      dockerfile: Dockerfile
     ports:
       - "8080:8080"
     depends_on:
@@ -20,7 +22,8 @@ services:
 
   microservice1-auth:
     build:
-      context: https://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@github.com/project-smart-contract/microservice1-auth.git#main
+      context: git@github.com:project-smart-contract/project-smart-contract/microservice1-auth.git
+      dockerfile: Dockerfile
     ports:
       - "8082:8082"
     depends_on:
@@ -31,7 +34,8 @@ services:
 
   microservice2-client:
     build:
-      context: https://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@github.com/project-smart-contract/microservice2-client.git#main
+      context: git@github.com:project-smart-contract/project-smart-contract/microservice2-client.git
+      dockerfile: Dockerfile
     ports:
       - "8083:8083"
     depends_on:
@@ -42,7 +46,8 @@ services:
 
   microservice3-admin:
     build:
-      context: https://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@github.com/project-smart-contract/microservice3-admin.git#main
+      context: git@github.com:project-smart-contract/project-smart-contract/microservice3-admin.git
+      dockerfile: Dockerfile
     ports:
       - "8084:8084"
     depends_on:
@@ -53,7 +58,8 @@ services:
 
   microservice4-java-ml:
     build:
-      context: https://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@github.com/project-smart-contract/microservice4-java-ml.git#main
+      context: git@github.com:project-smart-contract/project-smart-contract/microservice4-java-ml.git
+      dockerfile: Dockerfile
     ports:
       - "8085:8085"
     depends_on:
