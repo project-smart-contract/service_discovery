@@ -2,8 +2,7 @@ version: '2'
 services:
   service-discovery:
     build:
-      context: git@github.com:project-smart-contract/service_discovery.git
-      dockerfile: Dockerfile
+      context: .
     ports:
       - "8081:8081"
     networks:
@@ -11,10 +10,11 @@ services:
 
   server-gateway:
     build:
-      context: git@github.com:project-smart-contract/server_gateway.git
-      dockerfile: Dockerfile
+      context: https://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@github.com/project-smart-contract/server_gateway.git
     ports:
       - "8080:8080"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-discovery:8081/eureka
     depends_on:
       - service-discovery
     networks:
@@ -22,10 +22,11 @@ services:
 
   microservice1-auth:
     build:
-      context: git@github.com:project-smart-contract/microservice1-auth.git
-      dockerfile: Dockerfile
+      context: https://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@github.com/project-smart-contract/microservice1-auth.git
     ports:
       - "8082:8082"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-discovery:8081/eureka
     depends_on:
       - service-discovery
       - server-gateway
@@ -34,10 +35,11 @@ services:
 
   microservice2-client:
     build:
-      context: git@github.com:project-smart-contract/microservice2-client.git
-      dockerfile: Dockerfile
+      context: https://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@github.com/project-smart-contract/microservice2-client.git
     ports:
       - "8083:8083"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-discovery:8081/eureka
     depends_on:
       - service-discovery
       - server-gateway
@@ -46,10 +48,11 @@ services:
 
   microservice3-admin:
     build:
-      context: git@github.com:project-smart-contract/microservice3-admin.git
-      dockerfile: Dockerfile
+      context: https://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@github.com/project-smart-contract/microservice3-admin.git
     ports:
       - "8084:8084"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-discovery:8081/eureka
     depends_on:
       - service-discovery
       - server-gateway
@@ -58,10 +61,11 @@ services:
 
   microservice4-java-ml:
     build:
-      context: git@github.com:project-smart-contract/microservice4-java-ml.git
-      dockerfile: Dockerfile
+      context: https://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@github.com/project-smart-contract/microservice4-java-ml.git
     ports:
       - "8085:8085"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://service-discovery:8081/eureka
     depends_on:
       - service-discovery
       - server-gateway
