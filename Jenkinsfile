@@ -1,26 +1,24 @@
 pipeline {
     agent any
     stages {
-        stages {
-            stage('Checkout Codebase') {
-                steps {
-                    echo 'Checkout Codebase : polling..'
-                }
+        stage('Checkout Codebase') {
+            steps {
+                echo 'Checkout Codebase : polling..'
             }
-            stage('Build') {
-                steps {
-                    echo 'Building..'
-                }
+        }
+        stage('Build') {
+            steps {
+                echo 'Building..'
             }
-            stage('Test') {
-                steps {
-                    echo 'Testing..'
-                }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
             }
-            stage('Deploy') {
-                steps {
-                    echo 'Deploying....'
-                }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
             }
         }
     }
