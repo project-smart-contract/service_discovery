@@ -11,7 +11,7 @@ pipeline {
             steps {
                 script {
                     echo 'Building...'
-                    sh 'mvn clean compile package -DskipTests'
+                    bat 'mvn clean compile package -DskipTests'
                 }
             }
         }
@@ -19,7 +19,7 @@ pipeline {
             steps {
                 script {
                     echo 'Dockerizing...'
-                    sh "docker build -t ${IMAGE_NAME} ."
+                    bat "docker build -t ${IMAGE_NAME} ."
                 }
             }
         }
@@ -27,7 +27,7 @@ pipeline {
             steps {
                 script {
                     echo 'Logging in to Docker Hub...'
-                    sh "docker login -u _token -p ${DOCKERHUB_ACCESS_TOKEN} docker.io"
+                    bat "docker login -u _token -p ${DOCKERHUB_ACCESS_TOKEN} docker.io"
                 }
             }
         }
@@ -36,7 +36,7 @@ pipeline {
                 script {
                     echo 'Running Docker container...'
                     // Run the Docker container
-                    sh "docker run -p 8081:8081 --name ${CONTAINER_NAME} -d ${IMAGE_NAME}"
+                    bat "docker run -p 8081:8081 --name ${CONTAINER_NAME} -d ${IMAGE_NAME}"
                 }
             }
         }
@@ -45,7 +45,7 @@ pipeline {
                 script {
                     echo 'Deploying...'
                     // Push the Docker image to a container registry (e.g., Docker Hub)
-                    sh "docker push ${IMAGE_NAME}"
+                    bat "docker push ${IMAGE_NAME}"
 
                     // Add deployment steps (e.g., Kubernetes deployment) if applicable
                 }
