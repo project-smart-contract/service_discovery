@@ -4,7 +4,7 @@ pipeline {
         // Define any environment variables needed for the pipeline
         IMAGE_NAME = 'service-discovery'
         CONTAINER_NAME = 'service-discovery-container'
-        DOCKERHUB_ACCESS_TOKEN = credentials('dckr_pat_YMgSJv-eWyBCuALq1rnpzq4Ps8U')  // Use the credentials ID
+        DOCKERHUB_ACCESS_TOKEN = 'dckr_pat_YMgSJv-eWyBCuALq1rnpzq4Ps8U'  // Use the credentials ID
     }
     stages {
         stage('Build') {
