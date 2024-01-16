@@ -29,23 +29,14 @@ pipeline {
             steps {
                 echo 'Login...'
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-//                script {
-//                    echo 'Pushing...'
-//                    withCredentials( \
-//                                 [string(credentialsId: 'dockerhub_amina',\
-//                                 variable: 'dockerhub_amina')]) {
-//                        sh "docker login -u aminabakkali -p ${dockerhub_amina}"
-//                        sh "docker push aminabakkali/${IMAGE_NAME}"
-//                    }
-//                }
-
             }
         }
         stage('Push') {
             steps {
                 script {
                     echo 'Pushing...'
-                    sh "docker push aminabakkali/${IMAGE_NAME}"
+                    sh "docker push ${IMAGE_NAME}"
+//                    sh "docker push aminabakkali/${IMAGE_NAME}"
                 }
             }
         }
