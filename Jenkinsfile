@@ -4,7 +4,7 @@ pipeline {
         // Define any environment variables needed for the pipeline
         IMAGE_NAME = 'service-discovery'
         CONTAINER_NAME = 'service-discovery-container'
-//        DOCKERHUB_ACCESS_TOKEN = 'dckr_pat_YMgSJv-eWyBCuALq1rnpzq4Ps8U'  // Use the credentials ID
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub_amina')
     }
     stages {
         stage('Build') {
@@ -25,18 +25,28 @@ pipeline {
             }
         }
 
-        stage('Push image') {
+        stage('Login') {
+            steps {
+                echo 'Login...'
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+//                script {
+//                    echo 'Pushing...'
+//                    withCredentials( \
+//                                 [string(credentialsId: 'dockerhub_amina',\
+//                                 variable: 'dockerhub_amina')]) {
+//                        sh "docker login -u aminabakkali -p ${dockerhub_amina}"
+//                        sh "docker push aminabakkali/${IMAGE_NAME}"
+//                    }
+//                }
+
+            }
+        }
+        stage('Push') {
             steps {
                 script {
                     echo 'Pushing...'
-                    withCredentials( \
-                                 [string(credentialsId: 'dockerhub_amina',\
-                                 variable: 'dockerhub_amina')]) {
-                        sh "docker login -u aminabakkali -p ${dockerhub_amina}"
-                        sh "docker push aminabakkali/${IMAGE_NAME}"
-                    }
+                    sh "docker push aminabakkali/${IMAGE_NAME}"
                 }
-
             }
         }
 
