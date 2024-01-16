@@ -20,7 +20,7 @@ pipeline {
             steps {
                 script {
                     echo 'Dockerizing...'
-                    sh "docker build -t ${IMAGE_NAME} ."
+                    sh "docker build -t aminabakkali/${IMAGE_NAME} ."
                 }
             }
         }
@@ -29,14 +29,15 @@ pipeline {
             steps {
                 echo 'Login...'
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+//
+
             }
         }
         stage('Push') {
             steps {
                 script {
                     echo 'Pushing...'
-                    sh "docker push ${IMAGE_NAME}"
-//                    sh "docker push aminabakkali/${IMAGE_NAME}"
+                    sh "docker push aminabakkali/${IMAGE_NAME}"
                 }
             }
         }
