@@ -25,22 +25,23 @@ pipeline {
             }
         }
 
-        stage('Login') {
+        stage('Login + Push') {
             steps {
                 echo 'Login...'
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-//
+                echo 'Pushing...'
+                sh "docker push aminabakkali/${IMAGE_NAME}"
 
             }
         }
-        stage('Push') {
-            steps {
-                script {
-                    echo 'Pushing...'
-                    sh "docker push aminabakkali/${IMAGE_NAME}"
-                }
-            }
-        }
+//        stage('Push') {
+//            steps {
+//                script {
+//                    echo 'Pushing...'
+//                    sh "docker push aminabakkali/${IMAGE_NAME}"
+//                }
+//            }
+//        }
 
 
 
