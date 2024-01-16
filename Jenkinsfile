@@ -4,7 +4,7 @@ pipeline {
         // Define any environment variables needed for the pipeline
         IMAGE_NAME = 'service-discovery'
         CONTAINER_NAME = 'service-discovery-container'
-        DOCKERHUB_ACCESS_TOKEN = 'dckr_pat_YMgSJv-eWyBCuALq1rnpzq4Ps8U'  // Use the credentials ID
+//        DOCKERHUB_ACCESS_TOKEN = 'dckr_pat_YMgSJv-eWyBCuALq1rnpzq4Ps8U'  // Use the credentials ID
     }
     stages {
         stage('Build') {
@@ -24,31 +24,41 @@ pipeline {
                 }
             }
         }
-        stage('Login to Docker Hub') {
+
+        stage('Push image') {
             steps {
                 script {
-                    echo 'Logging in to Docker Hub...'
-                    sh "docker login -u _token -p ${DOCKERHUB_ACCESS_TOKEN} docker.io"
+                    echo 'Pushing...'
+                    withCredentials( \
+                                 [string(credentialsId: 'dockerhub_amina',\
+                                 variable: 'dockerhub_amina')]) {
+                        sh "docker login -u aminabakkali -p ${dockerhub_amina}"
+                        sh "docker push aminabakkali/${IMAGE_NAME}"
+                    }
                 }
+
             }
         }
-        stage('Run Container') {
-            steps {
-                script {
-                    echo 'Running Docker container...'
-                    // Run the Docker container
-                    sh "docker run -p 8081:8081 --name ${CONTAINER_NAME} -d ${IMAGE_NAME}"
-                }
-            }
-        }
-        stage('Deploy') {
-            steps {
-                script {
-                    echo 'Deploying...'
-                    sh "docker push ${IMAGE_NAME}"
-                }
-            }
-        }
+
+
+
+//        stage('Login to Docker Hub') {
+//            steps {
+//                script {
+//                    echo 'Logging in to Docker Hub...'
+//                    sh "docker login -u _token -p ${DOCKERHUB_ACCESS_TOKEN} docker.io"
+//                }
+//            }
+//        }
+//
+//        stage('Deploy') {
+//            steps {
+//                script {
+//                    echo 'Deploying...'
+//                    sh "docker push ${IMAGE_NAME}"
+//                }
+//            }
+//        }
     }
 }
 
