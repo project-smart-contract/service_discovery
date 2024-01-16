@@ -1,9 +1,5 @@
 pipeline {
     agent any
-    tools {
-        maven 'Maven 3.9.6'
-        jdk 'jdk21'
-    }
     environment {
         // Define any environment variables needed for the pipeline
         IMAGE_NAME = 'service-discovery'
