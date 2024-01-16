@@ -16,70 +16,39 @@ pipeline {
                 }
             }
         }
-        stage('Testing') {
+        stage('Dockerize') {
             steps {
                 script {
-                    echo 'Testing...'
+                    echo 'Dockerizing...'
+                    sh "docker build -t ${IMAGE_NAME} ."
                 }
             }
         }
-//        stage('Dockerize') {
-//            steps {
-//                script {
-//                    echo 'Dockerizing...'
-//                    sh "docker build -t ${IMAGE_NAME} ."
-//                }
-//            }
-//        }
-//        stage('Login to Docker Hub') {
-//            steps {
-//                script {
-//                    echo 'Logging in to Docker Hub...'
-//                    sh "docker login -u _token -p ${DOCKERHUB_ACCESS_TOKEN} docker.io"
-//                }
-//            }
-//        }
-//        stage('Run Container') {
-//            steps {
-//                script {
-//                    echo 'Running Docker container...'
-//                    // Run the Docker container
-//                    sh "docker run -p 8081:8081 --name ${CONTAINER_NAME} -d ${IMAGE_NAME}"
-//                }
-//            }
-//        }
-//        stage('Deploy') {
-//            steps {
-//                script {
-//                    echo 'Deploying...'
-//                    sh "docker push ${IMAGE_NAME}"
-//
-//                    // Add deployment steps (e.g., Kubernetes deployment) if applicable
-//                }
-//            }
-//        }
+        stage('Login to Docker Hub') {
+            steps {
+                script {
+                    echo 'Logging in to Docker Hub...'
+                    sh "docker login -u _token -p ${DOCKERHUB_ACCESS_TOKEN} docker.io"
+                }
+            }
+        }
+        stage('Run Container') {
+            steps {
+                script {
+                    echo 'Running Docker container...'
+                    // Run the Docker container
+                    sh "docker run -p 8081:8081 --name ${CONTAINER_NAME} -d ${IMAGE_NAME}"
+                }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                script {
+                    echo 'Deploying...'
+                    sh "docker push ${IMAGE_NAME}"
+                }
+            }
+        }
     }
 }
 
-
-
-//pipeline {
-//    agent any
-//    stages {
-//        stage('Build') {
-//            steps {
-//                echo 'Building..'
-//            }
-//        }
-//        stage('Test') {
-//            steps {
-//                echo 'Testing..'
-//            }
-//        }
-//        stage('Deploy') {
-//            steps {
-//                echo 'Deploying....'
-//            }
-//        }
-//    }
-//}
