@@ -1,69 +1,32 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: eureka-cm
-data:
-  eureka_service_address: "http://eureka-0.eureka:8761/eureka"
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: eureka
-  labels:
-    app: eureka
-spec:
-  clusterIP: None
-  ports:
-    - port: 8081
-      name: eureka
-  selector:
-    app: eureka
-
----
-
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
-  name: eureka
+  name: service-discovery
 spec:
-  serviceName: "eureka"
   replicas: 1
   selector:
     matchLabels:
-      app: eureka
+      app: service-discovery
   template:
     metadata:
       labels:
-        app: eureka
+        app: service-discovery
     spec:
       containers:
-        - name: eureka
+        - name: service-discovery
           image: aminabakkali/service-discovery
-          imagePullPolicy: Always
           ports:
             - containerPort: 8081
-          env:
-            - name: EUREKA_SERVER_ADDRESS
-              valueFrom:
-                configMapKeyRef:
-                  name: eureka-cm
-                  key: eureka_service_address
-
-
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
-  name: eureka-lb
-  labels:
-    app: eureka
+  name: service-discovery
 spec:
+  type: LoadBalancer
   selector:
-    app: eureka
-  type: NodePort
+    app: service-discovery
   ports:
-    - port: 8080
+    - protocol: TCP
+      port: 80
       targetPort: 8081
